@@ -28,7 +28,7 @@ class UserController extends Controller
     }
     //istar elementos
     public function list(){
-        $data['users'] = Usuario::paginate(10);
+        $data['users'] = Usuario::paginate(100);
         return view('users.index', $data);
     }
 
@@ -36,4 +36,17 @@ class UserController extends Controller
         Usuario::destroy($id);
         return back()->with('usuarioEliminado', 'El usuario ha sido eliminado');
     }
+    public function editform($id){
+        $usuario = Usuario::findOrFail($id);
+        return view('users.editform', compact('usuario'));
+    }
+    public function edit(Request $request, $id){
+        $datosusuario = request()->except((['_token','_method']));
+        Usuario::where('id', '=', $id)->update($datosusuario);
+
+        return back()->with('usuarioModificado', 'El usuario ha sido modificado');
+
+
+    }
+
 }

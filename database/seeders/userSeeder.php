@@ -15,17 +15,12 @@ class userSeeder extends Seeder
      */
     public function run()
     {
-
         $faker = Faker::create();
-        foreach(range(1,100) as $index){
-
+        foreach(range(1,10000) as $index){
             DB::table('usuarios')->insert([
                 'nombre' => $faker->name(5),
                 'email' => $faker->email(4)
             ]);
-
         }
-
-        
     }
 }
